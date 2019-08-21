@@ -1,0 +1,4 @@
+﻿  Homework20190820.cpp
+d:\шаг\github_1\homework20190820\homework20190820.cpp(50): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+d:\шаг\github_1\homework20190820\homework20190820.cpp(281): warning C4715: Days<int>: значение возвращается не при всех путях выполнения
+  Homework20190820.vcxproj -> D:\Шаг\Github_1\Homework20190820\x64\Debug\Homework20190820.exe
