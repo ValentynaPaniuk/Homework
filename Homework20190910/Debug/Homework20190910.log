@@ -1,0 +1,12 @@
+﻿  Homework20190910.cpp
+d:\шаг\github_1\homework20190910\homework20190910.cpp(188): warning C4244: =: преобразование "double" в "T", возможна потеря данных
+          with
+          [
+              T=int
+          ]
+  d:\шаг\github_1\homework20190910\homework20190910.cpp(104): note: выполняется компиляция ссылки на экземпляр шаблон функции "void Fill<int>(T [],const int)"
+          with
+          [
+              T=int
+          ]
+  Homework20190910.vcxproj -> D:\Шаг\Github_1\Homework20190910\Debug\Homework20190910_new_delete.exe
