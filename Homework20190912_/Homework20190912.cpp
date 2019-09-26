@@ -11,27 +11,47 @@ using namespace std;
 Меню*/
 
 //Функція створення динамічного масиву вказаного розміру і його заповнення випадковими числами.
-template<typename T>
-void Fill(T *arr[], int size)
+void Fill(int *arr, const int SIZE);
+//Вивід масиву на екраню. Функція повертає адресу створеного масиву.
+void Print(int *arr, const int SIZE);
+//Доповнення масиву одним елементом. Функція отримує адресу масиву, розмір та елемент для доповнення.
+void AddLastElement(int *&arr, int &size);
+//Видалення елемента за вказаною позицією.
+void DelElement(int *&arr, int &size);
+//Вставка нового елемента у довільну допустиму позицію у масиві
+void AddNewElement(int *&arr, int &size);
+//Меню
+int Menu();
+
+int main()
 {
-	for (int i = 0; i < size; i++)
+	srand(unsigned(time(NULL)));
+	Menu();
+	   
+	system("pause");
+	return 0;
+}
+
+//Функція створення динамічного масиву вказаного розміру і його заповнення випадковими числами.
+void Fill(int *arr, const int SIZE)
+{
+	for (int i = 0; i < SIZE; i++)
 	{
 		arr[i] = rand() % 20 + 5;
 	}
 }
 
-//Функція повертає адресу створеного масиву.
-template<typename T>
-void Print(T *arr[], int size)
+//Вивід масиву на екраню. Функція повертає адресу створеного масиву.
+void Print(int *arr, const int SIZE)
 {
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < SIZE; i++)
 	{
 		cout << "Arr[" << i << "] = " << arr[i] << " address = " << &arr[i] << endl;
 	}
 	cout << endl;
 }
 
-//Доповнення масиву одним елементом.Функція отримує адресу масиву, розмір та елемент для доповнення.
+//Доповнення масиву одним елементом. Функція отримує адресу масиву, розмір та елемент для доповнення.
 void AddLastElement(int *&arr, int &size)
 {
 	int Last_element = 0;
@@ -43,8 +63,9 @@ void AddLastElement(int *&arr, int &size)
 		NewArr[i] = arr[i];
 
 	}
-	NewArr[size]=Last_element;
+	NewArr[size] = Last_element;
 	delete[] arr;
+	arr = NewArr;
 	size++;
 }
 
@@ -82,19 +103,106 @@ void DelElement(int *&arr, int &size)
 	size--;
 }
 
-
-
-
-int main()
+//Вставка нового елемента у довільну допустиму позицію у масиві
+void AddNewElement(int *&arr, int &size)
 {
-	srand(unsigned(time(NULL)));
-	int size=0;
-	int *arr = new int[size];
-	cout << "Enter the size of the array:" << endl;
+	bool exit = false;
+	int iterator = 0;
+	int number_index = 0;
+	int number_element = 0;
+	while (!exit)
+	{
+		cout << "Enter index of number, what You want to add: " << endl;
+		cin >> number_index;
+		if (number_index >= 0 && number_index <= size)
+		{
+			exit = true;
+		}
+	}
+
+	cout << "Enter value of number: " << endl;
+	cin >> number_element;
+	int *NewArr = new int[size + 1];
+	for (int i = 0; i < size + 1; i++)
+	{
+		if (i == number_index)
+		{
+			NewArr[i] = number_element;
+		}
+		else
+		{
+			NewArr[i] = arr[iterator];
+			iterator++;
+		}
+	}
+	delete[] arr;
+	arr = NewArr;
+	size++;
+
+}
+
+//Меню
+int Menu()
+{
+	bool exit = false;
+	int choise = 0;
+	while (!exit)
+	{
+		system("cls");
+		cout << "********************  MENU ***************" << endl;
+		cout << "1. Do You want to create array? \n2. Exit" << endl;
+		cout << "Enter your choise: " << endl;
+		cin >> choise;
+		switch (choise)
+		{
+		case 1: exit = true;
+			break;
+		case 2:
+			return 0;
+		}
+	}
+
+	system("cls");
+
+	int size = 0;
+	
+	cout << "Enter the size of the array: " << endl;
 	cin >> size;
+	int *arr = new int[size];
+	Fill(arr, size);
+	system("cls");
+	exit = false;
+	choise = 0;
+	while (!exit)
+	{
+		cout << "MENU" << endl;
+		cout << "1. Print array; \n2. Add Last Element; \n3. Delete Element; \n4. Add New Element; \n0. Exit " << endl;
+		cout << "Enter your choise: " << endl;
+		cin >> choise;
+		switch (choise)
+		{
+		case 1:
+			Print(arr, size);
+			break;
+		case 2:
+			AddLastElement(arr, size);
+			Print(arr, size);
+			break;
+		case 3:
+			DelElement(arr, size);
+			Print(arr, size);
+			break;
+		case 4:
+			AddNewElement(arr, size);
+			Print(arr, size);
+			break;
+		case 0:
+			return 0;
+		default:
+			cout << "Incorrect value. Try again! " << endl;
+		}
 
 
+	}
 
-	system("pause");
-	return 0;
 }
