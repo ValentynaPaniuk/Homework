@@ -15,6 +15,8 @@ using namespace std;
 8. Функція видалення з матриці стовпця за вказаним номером
 9. Функція вставки нового стовпця за вказаним номером */
 
+
+
 // Чистка пам'яті
 void Clean(int **arr1, int &row1);
 /*1. Функція створення динамічної матриці розміром row x col, де row та col - аргументи функції.
@@ -45,6 +47,12 @@ void DelCol(int **&arr1, int &row1, int &col1);
 // 9. Функція вставки нового стовпця за вказаним номером
 void AddNewCol(int **&arr1, int &row1, int &col1);
 
+// Меню
+
+void Menu(int **arr1, int &row1, int &col1);
+
+
+
 
 int main()
 {
@@ -58,39 +66,24 @@ int main()
 	cout << "---------------------------------------------------------------------------" << endl;
 
 	int **arr1 = new int *[row1];
-	
 	//1.
 	Create_matrix(arr1, row1, col1);
 	//2.
 	Fill_matrix(arr1, row1, col1);
 	//3.
 	Print_matrix(arr1, row1, col1);
-	//4.
-	cout << "ADD LAST ROW: " << endl;
-	AddLastRow(arr1, row1, col1);
-	Print_matrix(arr1, row1, col1);
-	//5.
-	cout << "DELETE ROW: " << endl;
-	DelRow(arr1, row1, col1);
-	Print_matrix(arr1, row1, col1);
-	//6.
-	cout << "ADD NEW ROW: " << endl;
-	AddNewRow(arr1, row1, col1);
-	Print_matrix(arr1, row1, col1);
-	//7.
-	cout << "ADD LAST COLUMN: " << endl;
-	AddLastCol(arr1, row1, col1);
-	Print_matrix(arr1, row1, col1);
-	//8.
-	cout << "DELETE COLUMN: " << endl;
-	DelCol(arr1, row1, col1);
-	Print_matrix(arr1, row1, col1);
-	//9.
-	AddNewCol(arr1, row1, col1);
-	Print_matrix(arr1, row1, col1);
+
+	cout << "---------------------------------------------------------------------------" << endl;
+
+	Menu(arr1, row1, col1);
+
+
 
 	Clean(arr1, row1);
 	arr1 = nullptr;
+
+	
+
 
 
 	system("pause");
@@ -300,4 +293,96 @@ void AddNewCol(int **&arr1, int &row1, int &col1)
 	Clean(arr1, row1);
 	row1++;
 	arr1 = arr2;
+}
+
+void  Menu(int **arr1, int &row1, int &col1)
+{
+	
+	int choice = 0;
+	bool exit = false;
+	while (!exit)
+
+	{
+		cout << "What are You going to do with matrix:" << endl;
+		cout << "1 - add last row:" << endl;
+		cout << "2 - delete row:" << endl;
+		cout << "3 - add new row:" << endl;
+		cout << "4 - add last column:" << endl;
+		cout << "5 - delete column:" << endl;
+		cout << "6 - add new column:" << endl;
+		cout << "0 - exit" << endl;
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 0:
+		{
+			cout << "EXIT. GOOD BUY, MY FRIEND. DINAMIX MATRIX - THE BEST!!!!!!!!!!!!!" << endl;
+			exit = true;
+			break;
+		}
+		case 1:
+		{
+			//4.
+			cout << "ADD LAST ROW: " << endl;
+			AddLastRow(arr1, row1, col1);
+			Print_matrix(arr1, row1, col1);
+			break;
+		}
+		case 2:
+		{
+			//5.
+			cout << "DELETE ROW: " << endl;
+			DelRow(arr1, row1, col1);
+			Print_matrix(arr1, row1, col1);
+			break;
+		}
+		case 3:
+		{
+			//6.
+			cout << "ADD NEW ROW: " << endl;
+			AddNewRow(arr1, row1, col1);
+			Print_matrix(arr1, row1, col1);
+			break;
+
+		}
+		case 4:
+		{
+			//7.
+			cout << "ADD LAST COLUMN: " << endl;
+			AddLastCol(arr1, row1, col1);
+			Print_matrix(arr1, row1, col1);
+			break;
+
+		}
+
+		case 5:
+		{
+			//8.
+			cout << "DELETE COLUMN: " << endl;
+			DelCol(arr1, row1, col1);
+			Print_matrix(arr1, row1, col1);
+			break;
+
+		}
+		case 6:
+		{
+			//9.
+			AddNewCol(arr1, row1, col1);
+			Print_matrix(arr1, row1, col1);
+			break;
+
+		}
+
+		default:
+			break;
+		}
+
+
+	}
+	
+	
+	
+	
+	
 }
