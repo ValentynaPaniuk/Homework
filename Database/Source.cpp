@@ -4,6 +4,7 @@
 
 using namespace std;
 
+/// BOOK///////////////////////////////////////////////////
 struct cardBook
 {
 	string title;
@@ -16,7 +17,8 @@ struct cardBook
 
 	void ShowInfoCardBook() 
 	{
-		cout << "Title\t" << title << "\nAuthor\t" << author << "\nDescription\t" << description << "\nPages:\t"<<pages << "\nYear of publicathion\t" << yearOfPublication << "\nDate book received of the library:\t"<<dateBookReceivedLibrary<<endl;
+		cout << "Title\t" << title << "\tAuthor\t" << author << "\tPages:\t"<<pages << "\nYear of publicathion\t" << yearOfPublication << "\nDate book received of the library:\t"<<dateBookReceivedLibrary<<endl;
+		cout << "\nDescription\t" << description << endl;
 	}
 };
 
@@ -29,8 +31,9 @@ void ShowInfoCardBook(cardBook *cardBooks, const int numberOfCardBooks)
 	}
 }
 
-void CreateBookCollection(cardBook *cardBooks, const int numberOfCardBooks)
+void CreateBookCollection(cardBook *cardBooks, int &numberOfCardBooks)
 {
+	
 	cout << "----------------------------------------" << endl;
 	for (int i = 0; i < numberOfCardBooks; i++)
 	{
@@ -55,7 +58,21 @@ void CreateBookCollection(cardBook *cardBooks, const int numberOfCardBooks)
 }
 
 
+void FindCardBook(cardBook *cardBooks, const int numberOfCardBooks)
+{
+	string titleBook;
+	cout << "Enter title of book do You want to find: " << endl;
+	cin >> titleBook;
+	for (int i = 0; i < numberOfCardBooks; i++)
+	{
+		if (cardBooks[i].title == titleBook)
+		{
+			cardBooks[i].ShowInfoCardBook();
+		}
+	}
+}
 
+/////  CLIENT    ////////////////////////////////////////////
 struct cardClient
 {
 	string idCard;
@@ -68,7 +85,7 @@ struct cardClient
 
 	void ShowInfoCardClient()
 	{
-		cout << "ID card\t" << idCard << "\nName\t" << name << "Surname\t" << surname << "\nHobby:\t" << hobby << "\nDate of birthday:\t" <<dateOfBirthday <<" "<< monthOfBirthday <<" "<< yearOfBirthday << endl;
+		cout << "ID card\t" << idCard << "\nName " << name << " " << surname << "\nHobby:\t" << hobby << "\nDate of birthday:\t" <<dateOfBirthday <<" "<< monthOfBirthday <<" "<< yearOfBirthday << endl;
 	}
 };
 
@@ -78,29 +95,30 @@ void ShowInfoClient(cardClient *cardClients, const int numberOfCardClients)
 	{
 		cardClients[i].ShowInfoCardClient();
 	}
-
+	
 }
 
 void AddNewCardClient(cardClient *cardClients, const int numberOfCardClients)
 {
 	for (int i = 0; i < numberOfCardClients; i++)
 	{
-		cout << "Add card of the client: => " << i + 1 << endl;
-		cout << "Name of client: " << endl;
+		cardClients[i].idCard = i + 1;
+		cout << "Add card of the client: => " << cardClients[i].idCard << endl;
+		cout << "Name of client:\t" ;
 		cin >> cardClients[i].name;
-		cout << "Surname of client: " << endl;
+		cout << "Surname of client:\t";
 		cin >> cardClients[i].surname;
-		cout << "Hobby: " << endl;
+		cout << "Hobby:\t";
 		cin >> cardClients[i].hobby;
-		cout << "Date of birthday: " << endl;
+		cout << "Date of birthday:\t";
 		cin >> cardClients[i].dateOfBirthday;
-		cout << "Month of birthday: " << endl;
+		cout << "Month of birthday:\t";
 		cin >> cardClients[i].monthOfBirthday;
-		cout << "Year of birthday:  " << endl;
+		cout << "Year of birthday:\t" << endl;
 		cin >> cardClients[i].yearOfBirthday;
-		cout << "------------------------------------" << endl;
-		cout << "|   Add card of client "<< i+1 <<"     |"<< endl;
-		cout << "------------------------------------" << endl;
+		cout << "----------------------------------------------------------" << endl;
+		cout << "|   Add card of client "<< cardClients[i].idCard <<"     |"<< endl;
+		cout << "----------------------------------------------------------" << endl;
 	}	
 	
 }
@@ -120,12 +138,65 @@ void SortByName(cardClient *cardClients, const int numberOfCardClients)
 	}
 }
 
+//Developer
+
+struct developer
+{
+	string devel;
+	string address;
+	string email;
+
+	void ShowInfoDev()
+	{
+		cout << "    Developer: \t" << devel << "\nAddress: \t" << address << "e-mail: \t" << email<< endl;
+		cout << "                           All rights reserved." << endl;
+		cout << "     Support phone: +3(8)096-599-13-35 (paid from all Ukrainian networks)." << endl;
+	}
+};
+
+void CreateDev(developer dev)
+{
+	
+	dev.devel = "Paniuk Valentyna";
+	dev.address = "str. Haidamatska, buil. 41, apt. 78, Rivne, 33000";
+	dev.email = "valentyna.paniuk@gmail.com";
+	dev.ShowInfoDev();
+}
+
+
+
+// Library
+struct library
+{
+	cardBook book;
+	string name;
+	int booksCount;
+	string director;
+	string address;
+	string contactManager;
+	string workSchedule;
+	string history;
+	void ShowInfoLibrary()
+	{
+		cout << "LIBRARY:\t" << name << "\nAddress:\t" << address <<"\nworkSchedule\t"<<workSchedule<<endl;
+	}
+};
+
+void CreateLibrary(library &lib)
+{
+	lib.name = "Rivne Regional Universal Scientific Library";
+	lib.booksCount =10;
+	lib.director = "Valentyna Petrivna Yaroschuk";
+	lib.address = "33028, Rivne, Sq. Korolenko, 6";
+	lib.workSchedule="\t9:00=19:00; \nSunday:\t\t\t9:00 = 18:00;\n\t\t\tDay off is friday. ";
+	lib.history = "Rivne Regional Universal Scientific Library was founded in February 1940.";
+	lib.ShowInfoLibrary();
+}
 
 
 
 
-
-void Menu( int menu, bool exit, cardBook *cardBooks, int numberOfCardBooks,  const int numberOfCardClients, cardClient *cardClients)
+void MenuManager( int menu, bool exit, cardBook *cardBooks, int numberOfCardBooks,  const int numberOfCardClients, cardClient *cardClients, developer dev, library &lib)
 {
 	while (!exit)
 	{
@@ -133,7 +204,11 @@ void Menu( int menu, bool exit, cardBook *cardBooks, int numberOfCardBooks,  con
 		{
 		case 1: //1.Enter Database:\n";
 		{
-			break;
+			system("cls");
+			CreateLibrary(lib);
+			system("cls");
+			exit = true;
+			
 		}
 		case 11: //11.From File\n";
 		{
@@ -145,6 +220,7 @@ void Menu( int menu, bool exit, cardBook *cardBooks, int numberOfCardBooks,  con
 		}
 		case 2: // 2.Browsing the database БД\n"; перегляд бази даних
 		{
+
 			break;
 		}
 		case 31: //31.Clear the database\n";
@@ -156,17 +232,21 @@ void Menu( int menu, bool exit, cardBook *cardBooks, int numberOfCardBooks,  con
 			AddNewCardClient(cardClients, numberOfCardClients);
 			ShowInfoClient(cardClients, numberOfCardClients);
 			break;
+
 		}
 		case 33: //33.Add new card books:\n";
 		{
 			CreateBookCollection(cardBooks, numberOfCardBooks);
 			ShowInfoCardBook(cardBooks, numberOfCardBooks);
+			
 			break;
 		}
-		case 34: //34.Delete record\n";
+		case 34: //34.Delete card books\n";
 		{
-
-
+			break;
+		}
+		case 35: //35.Delete card client\n";
+		{
 			break;
 		}
 		case 41: // 41.Database output in File\n";
@@ -181,15 +261,14 @@ void Menu( int menu, bool exit, cardBook *cardBooks, int numberOfCardBooks,  con
 		{
 			break;
 		}
-		case 52: //52.Data search by the name of the book:\n";
+		case 52: //52.Data search by the title of the book:\n";
 		{
+			FindCardBook(cardBooks, numberOfCardBooks);
+			menu = 8;
 			break;
 		}
-		case 53: //53.Data search by the name of the book:\n";
-		{
-			break;
-		}
-		case 54: //54.Data search by the author's name:\n";
+		
+		case 53: //54.Data search by the author's name:\n";
 		{
 			break;
 		}
@@ -205,15 +284,16 @@ void Menu( int menu, bool exit, cardBook *cardBooks, int numberOfCardBooks,  con
 		{
 			SortByName(cardClients, numberOfCardClients);
 			ShowInfoClient(cardClients, numberOfCardClients);
-			
+			exit = true;
 			break;
 		}
-		case 64: //64.Sort by card number:\n";
-		{
-			break;
-		}
+		
 		case 7: //7.About the developer\n";
 		{
+			system("cls");
+			CreateDev(dev);
+			
+			exit = true;
 			break;
 		}
 		case 8: //8.Clear the screen\n";
@@ -230,7 +310,8 @@ void Menu( int menu, bool exit, cardBook *cardBooks, int numberOfCardBooks,  con
 			cout << "    31.Clear the database\n";
 			cout << "    32.Add new card clients:\n";
 			cout << "    33.Add new card books:\n";
-			cout << "    34.Delete record\n";
+			cout << "    34.Delete card books\n";
+			cout << "    35.Delete card client\n";
 			cout << "**************************" << endl;
 			cout << "  4.Database output:\n"; //вивід бази даних
 			cout << "    41.In File\n";
@@ -238,15 +319,13 @@ void Menu( int menu, bool exit, cardBook *cardBooks, int numberOfCardBooks,  con
 			cout << "**************************" << endl;
 			cout << "  5.Data search:\n";
 			cout << "     51.By client's last name:\n";
-			cout << "     52.By the name of the book:\n";
-			cout << "     53.By the name of the book:\n";
-			cout << "     54.By the author's name:\n";
+			cout << "     52.By the title of the book:\n";
+			cout << "     53.By the author's name:\n";
 			cout << "**************************" << endl;
 			cout << "  6.Sorting:\n";
 			cout << "     61.Sort by book title:\n";
 			cout << "     62.Sort by the author of the book:\n";
 			cout << "     63.Sort by visitor name:\n";
-			cout << "     64.Sort by card number:\n";
 			cout << "**************************" << endl;
 			cout << "  7.About the developer\n";
 			cout << "**************************" << endl;
@@ -282,22 +361,59 @@ int main()
 	int menu = 8;
 	int numberOfCardBooks = 0;
 	int numberOfCardClients = 0;
-	cout << "How many book cards we will enter: " << endl;
-	cin >> numberOfCardBooks;
-	cout << "How many people do You want to add: " << endl;
-	cin >> numberOfCardClients;
-	cardBook *cardBooks = new cardBook[numberOfCardBooks];
-	cardClient *cardClients = new cardClient[numberOfCardClients];
+	
+	
+		string personType;
+	
+		system("cls");
+		cout << "===================================================================" << endl;
+		cout << "|                                                                  |" << endl;
+		cout << "|                                                                  |" << endl;
+		cout << "|                    WELCAME TO THE LIBRARY!                       |" << endl;
+		cout << "|                                                                  |" << endl;
+		cout << "|                                                                  |" << endl;
+		cout<<	"|             People stop thinking, when they stop reading         |" << endl;
+		cout << "|                                                                  |" << endl;
+		cout << "|                                                                  |" << endl;
+		cout << "|                                                                  |" << endl;
+		cout << "|                                                                  |" << endl;
+		cout << "===================================================================" << endl;
+		cout << "\t\t\tAre you a client or manager?" << endl;
+		cin >> personType;
+
+		cout << "How many book cards we will enter: " << endl;
+		cin >> numberOfCardBooks;
+		cout << "How many people do You want to add: " << endl;
+		cin >> numberOfCardClients;
+
+
+		cardBook *cardBooks = new cardBook[numberOfCardBooks];
+		cardClient *cardClients = new cardClient[numberOfCardClients];
+		developer dev;
+		library lib;
+	
+		do
+		{
+		if (personType == "client" || personType=="Client" || personType=="CLIENT")
+			{
+				; // Calls Function mainMenu
+			}
+
+		else if (personType == "manager" || personType == "Manager" || personType == "MANAGER")
+		{
+			MenuManager(menu, exit, cardBooks, numberOfCardBooks, numberOfCardClients, cardClients, dev, lib);
+		}
+	} while (personType == "client" || personType == "Client" || personType == "CLIENT" || personType == "manager" || personType == "Manager" || personType == "MANAGER");
+
+cout << endl << "Thank You for visiting our library. BYE !!! " << endl;
 	
 
-	Menu(menu, exit, cardBooks, numberOfCardBooks, numberOfCardClients, cardClients);
-	
+	//MenuManager(menu, exit, cardBooks, numberOfCardBooks, numberOfCardClients, cardClients, dev, lib);
 
 
-	
 
 	
-
+	
 	
 
 
