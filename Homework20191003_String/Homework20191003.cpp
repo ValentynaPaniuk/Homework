@@ -49,6 +49,7 @@ int main()
 	//2. Дано рядок, написаний маленькими літерами. Замінити всі маленькі літери на великі.
 	/*cout << "\nExercice 2: " << endl;
 	char sentence[] = { 255 };
+	
 	cin >> sentence;
 
 	for (int i = 0; i <= strlen(sentence); i++)
@@ -56,30 +57,73 @@ int main()
 		if (int(sentence[i]) >= 97 && int(sentence[i]) <= 122)
 		{
 			
-			sentence[i] = sentence[i] - 32;
+			sentence[i] = int (sentence[i]) - 32;
 		}
 	}
-	cout << sentence;
+
+	
+	
+	for (int i = 0; i < strlen(sentence); i++)
+	{
+		cout << "i = "<< i <<"  "<< sentence[i];
+		cout << endl;
+	}
 	cout << endl;*/
 
 	/*3. Дана строка, содержащая полное имя файла, то есть имя диска, список каталогов(путь), собственно имя и расширение.
 		Выделить из этой строки имя файла(без расширения).*/
 
 	char letter[255] = { 'D',':','/','M','y','_','f','i','l','e','/','D','o','c','.','t','x','t'};
+	cout << "*********** Before ***********************" << endl;
 	cout << letter << endl;
+
+	int size = 0;
+	int *arrFlag = new int[size];
 
 	for (int i = 0; i < strlen(letter); i++)
 	{
-		for(int j= strlen(letter); j>0; j++)
-		if (int(letter[i - 1]) == 47 && int(letter[j]) == 46)
+		if (int(letter[i]) == 47 || int(letter[i]) == 46)
 		{
-			cout << letter[i];
+			int *newArrFlag = new int[size + 1];
+			for (int j = 0; j < size; j++)
+			{
+				newArrFlag[j] = arrFlag[j];
+			}
+			newArrFlag[size] = i;
+			delete[] arrFlag;
+			size++;
+			arrFlag = newArrFlag;
 		}
 	}
+	cout << endl;
+
+	char arr[255] = {};
+	int counter1 = 0;
+
+	for (int i = 0; i < strlen(letter); i++)
+	{
+		if (i - 1 >= arrFlag[size - 2] && i + 1 <= arrFlag[size - 1])
+		{
+			arr[counter1] = letter[i];
+			
+			counter1++;
+			cout << arr[counter] << "   ";
+		}
+	}
+	cout << endl;
 
 
+	
+	
+	cout << "*********** After ***********************" << endl;
+
+	/*for (int i = 0; i < strlen(arr); i++)
+	{
+		cout << arr[i];
+	}
+	cout << endl;
 
 	system("pause");
-	return 0;
+	return 0;*/
 
 }
