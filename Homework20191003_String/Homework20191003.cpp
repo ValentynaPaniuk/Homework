@@ -90,11 +90,13 @@ int main()
 				newArrFlag[j] = arrFlag[j];
 			}
 			newArrFlag[size] = i;
+			
 			delete[] arrFlag;
 			size++;
 			arrFlag = newArrFlag;
 		}
 	}
+
 	cout << endl;
 
 	char arr[255] = {};
@@ -105,9 +107,8 @@ int main()
 		if (i - 1 >= arrFlag[size - 2] && i + 1 <= arrFlag[size - 1])
 		{
 			arr[counter1] = letter[i];
-			
+
 			counter1++;
-			cout << arr[counter] << "   ";
 		}
 	}
 	cout << endl;
@@ -117,13 +118,13 @@ int main()
 	
 	cout << "*********** After ***********************" << endl;
 
-	/*for (int i = 0; i < strlen(arr); i++)
+	for (int i = 0; i < strlen(arr); i++)
 	{
 		cout << arr[i];
 	}
 	cout << endl;
 
 	system("pause");
-	return 0;*/
+	return 0;
 
 }
