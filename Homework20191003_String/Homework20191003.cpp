@@ -93,6 +93,7 @@ int main()
 			
 			delete[] arrFlag;
 			size++;
+			cout << "SIZE = " << size << endl;
 			arrFlag = newArrFlag;
 		}
 	}
@@ -112,7 +113,7 @@ int main()
 		}
 	}
 	cout << endl;
-
+	
 
 	
 	
