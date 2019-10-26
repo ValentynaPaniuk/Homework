@@ -2,6 +2,7 @@
 # include <ctime>
 # include <string>
 # include <fstream> //бібліотека fstream
+#include <cstdlib>
 
 
 using namespace std;
@@ -140,6 +141,9 @@ int main()
 
 	
 	char arr1[50];
+	string arrive1[20];
+	string text1;
+	int i_ = 0;
 	
 	
 	while (!fin1.eof()) //об'єкт fin має метод eof, який відслідковує кінець файлу (Файл працює поки не наступить кінець файлу)
@@ -152,51 +156,49 @@ int main()
 
 		//===================================================================================
 		// МЕТОД, ЩО ЗЧИТУЄ ПОРЯДКОВО. Метод getline бере два параметри: дані з об'єкту fin  і записує в змінну text. fin, text - парамерти. 
-		//getline(fin1, text1);
-		//arrive[i] = text1;
-		//cout << text1 << endl;
-		//i++;
+		getline(fin1, text1);
+		arrive1[i_] = text1;
+		cout << text1 << endl;
+		i_++;
 
 
 		//===================================================================================
 		// МЕТОД, ЩО ЗЧИТУЄ ПОРЯДКОВО. Метод getline бере два параметри: масив чарів arr і кількість символів в масиві.
 		// Не зручно працювати з типом string. Це має бути масив типу char.
-		fin1.getline(arr1, 50);
-		cout << arr1<<"\n";
+		/*fin1.getline(arr1, 50);
+		cout << arr1<<"\n";*/
 		
 
 	}
 
 	fin1.close();
 
-	cout << "|||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-	for (int i = 0; i<50; i++)
+	cout << "Text to encryption: " << endl;
+	cout << "\n=========================================================" << endl;
+	for (int i = 0; i<20; i++)
 	{
-		cout << arr1[i];
+		cout << arrive1[i] <<"\n" ;
 	}
-	cout << endl;
+	cout << "\n=========================================================" << endl;
 	
-	//-----------------------------------------------------
-	for (int i = 0; i < 50; i++)
-	{
-		arr1[i] = int (arr1[i])+12;
-		cout << arr1[i];
-
-	}
-	cout << endl;
-	//------------------------------------------------------
-	cout << "|||||||||||||||||||||||||||||||||||||||||||||||" << endl;
-	for (int i = 0; i < 50; i++)
-	{
-		cout << arr1[i];
-	}
-	cout << endl;
 	
+	// Шифрування тексту	 
+	for (int i = 0; i < 20; i++)
+	{
+		arrive1[i] = atoi(arrive1[i].c_str()) + 12;
+		
+	}
+	cout << "Text after encryption: " << endl;
+	for (int i = 0; i < 20; i++)
+	{
+		cout << arrive1[i]<<"\n";
+	}
+	cout << "\n=========================================================" << endl;
+	   	 
 	// Перезапис в іншу базу даних
-
 	ofstream fout;
 	string path1 = "bd3.txt";
-	fout.open(path1);
+	fout.open(path1, ofstream::app);
 	if (!fout.is_open())
 	{
 		cout << "Error!!!! " << endl;
@@ -205,10 +207,11 @@ int main()
 	{
 		cout << "Open file! " << endl;
 
-		for (int i = 0; i < 50; i++)
+		for (int i = 0; i < 20; i++)
 		{
-			fout << arr1[i];
+			fout << arrive1<<"\n";
 		}
+		cout << endl;
 	}
 
 	fout.close();

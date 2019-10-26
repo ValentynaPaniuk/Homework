@@ -47,83 +47,130 @@ int main()
 	
 	//НЕ ПРАЦЮЄ КОРЕКТНО!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	//2. Дано рядок, написаний маленькими літерами. Замінити всі маленькі літери на великі.
-	/*cout << "\nExercice 2: " << endl;
-	char sentence[] = { 255 };
+	cout << "\nExercice 2: " << endl;
+	char sentence[255];
 	
 	cin >> sentence;
+	int Size = 0;
+
+	char *sentence_ = new char[Size];
 
 	for (int i = 0; i <= strlen(sentence); i++)
 	{
 		if (int(sentence[i]) >= 97 && int(sentence[i]) <= 122)
 		{
 			
-			sentence[i] = int (sentence[i]) - 32;
+			sentence_[i] = (int (sentence[i]) - 32);
+			Size++;
 		}
 	}
-
-	
-	
-	for (int i = 0; i < strlen(sentence); i++)
+		
+	for (int i = 0; i < Size; i++)
 	{
-		cout << "i = "<< i <<"  "<< sentence[i];
-		cout << endl;
+		cout << sentence_[i];
 	}
-	cout << endl;*/
+	cout << endl;
+
+
 
 	/*3. Дана строка, содержащая полное имя файла, то есть имя диска, список каталогов(путь), собственно имя и расширение.
 		Выделить из этой строки имя файла(без расширения).*/
 
-	char letter[255] = { 'D',':','/','M','y','_','f','i','l','e','/','D','o','c','.','t','x','t'};
+	char letter[255] = { 'D',':','/','M','y','_','f','i','l','e','/','D','o','c','.','t','x','t' };
 	cout << "*********** Before ***********************" << endl;
-	cout << letter << endl;
-
-	int size = 0;
-	int *arrFlag = new int[size];
+	cout << letter <<endl;
+	
+	
+	cout << "\n**********************************" << endl;
+	// Шукаємо скільки разів зустрічається знак "/"
+	int coordsSize = 0;
+	int coordsCounter = 0;
+	for (int i =0; i< strlen(letter); i++)
+	{
+		if (int(letter[i]) == 47)
+		{
+			coordsSize++;
+		}
+		
+	}
+	// Створюємо динамічний масив для збереження координат знаку "/"
+	int *coords = new int[coordsSize];
 
 	for (int i = 0; i < strlen(letter); i++)
 	{
-		if (int(letter[i]) == 47 || int(letter[i]) == 46)
+		if (int(letter[i]) == 47)
 		{
-			int *newArrFlag = new int[size + 1];
-			for (int j = 0; j < size; j++)
-			{
-				newArrFlag[j] = arrFlag[j];
-			}
-			newArrFlag[size] = i;
+			coords[coordsCounter] = i;
+			coordsCounter++;
+		}
+	}
+	cout << endl;
+	int sleg;
+	// Виводимо масив з координатами знаку "/"
+	for (int i = 0; i < coordsCounter; i++)
+	{
+		cout << "Sleg = >>" << coords[i] << endl;
+		sleg = coords[i];
+	}
+
+	
+	// Шукаємо скільки разів зустрічається знак "."
+	int coordsSize_ = 0;
+	int coordsCounter_ = 0;
+	for (int i =0; i< strlen(letter); i++)
+	{
+		if (int(letter[i]) == 46)
+		{
+			coordsSize_++;
+		}
+
+	}
+	
+	// Створюємо динамічний масив для збереження координат знаку "."
+	int *coords_ = new int[coordsSize_];
+
+	for (int i = 0; i < strlen(letter); i++)
+	{
+		if (int(letter[i]) == 46)
+		{
+			coords_[coordsCounter_] = i;
+			coordsCounter_++;
+		}
+	}
+	cout << endl;
+	
+	// Виводимо масив з координатами знаку "."
+	int krapka;
+	for (int i = 0; i < coordsCounter_; i++)
+	{
+		cout <<" Krapka =>    " << coords_[i] << endl;
+		krapka = coords_[i];
+	}
+	
+	cout << "\n============= RESULT =======================" << endl;
+
+	if (sleg < krapka)
+	{
+		for (int i = sleg + 1; i <= krapka - 1; i++)
+		{
+			cout <<letter[i];
 			
-			delete[] arrFlag;
-			size++;
-			cout << "SIZE = " << size << endl;
-			arrFlag = newArrFlag;
 		}
+		cout << endl;
+		
 	}
-
-	cout << endl;
-
-	char arr[255] = {};
-	int counter1 = 0;
-
-	for (int i = 0; i < strlen(letter); i++)
+	else
 	{
-		if (i - 1 >= arrFlag[size - 2] && i + 1 <= arrFlag[size - 1])
-		{
-			arr[counter1] = letter[i];
-
-			counter1++;
-		}
+		cout << "Enter the file path correctly!" << endl;
 	}
-	cout << endl;
-	
+
+	delete[] coords;
+	coords = nullptr;
+	delete[] coords_;
+	coords_ = nullptr;
+
 
 	
-	
-	cout << "*********** After ***********************" << endl;
-
-	for (int i = 0; i < strlen(arr); i++)
-	{
-		cout << arr[i];
-	}
-	cout << endl;
 
 	system("pause");
 	return 0;
