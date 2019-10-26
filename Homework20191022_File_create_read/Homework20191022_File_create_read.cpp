@@ -175,23 +175,27 @@ int main()
 
 	cout << "Text to encryption: " << endl;
 	cout << "\n=========================================================" << endl;
+	int size = 0;
+
+	string *arr2 = new string[size];
 	for (int i = 0; i<20; i++)
 	{
 		cout << arrive1[i] <<"\n" ;
+		size++;
 	}
 	cout << "\n=========================================================" << endl;
 	
 	
 	// Шифрування тексту	 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < size; i++)
 	{
-		arrive1[i] = atoi(arrive1[i].c_str()) + 12;
+		arr2[i] = atoi(arrive1[i].c_str()) + 12;
 		
 	}
 	cout << "Text after encryption: " << endl;
 	for (int i = 0; i < 20; i++)
 	{
-		cout << arrive1[i]<<"\n";
+		cout << arr2[i]<<"\n";
 	}
 	cout << "\n=========================================================" << endl;
 	   	 
@@ -207,12 +211,15 @@ int main()
 	{
 		cout << "Open file! " << endl;
 
-		for (int i = 0; i < 20; i++)
-		{
-			fout << arrive1<<"\n";
-		}
-		cout << endl;
+		
 	}
+
+	for (int i = 0; i < 20; i++)
+	{
+		fout << arrive1;
+	}
+	cout << endl;
+
 
 	fout.close();
 
